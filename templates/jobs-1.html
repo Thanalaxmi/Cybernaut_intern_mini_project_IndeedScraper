@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Job Portal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo-container">
+            <img class="header-logo" src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+            <span class="site-title">Job Portal</span>
+        </div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Jobs</a>
+            <a href="#">Companies</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </nav>
+    </header>
+
+    <!-- Search Section -->
+    <section class="search-section">
+        <form method="get" action="/" class="search-container">
+            <input type="text" name="q" placeholder="🔍 Job title, keywords..." value="{{ query }}">
+            <input type="text" name="location" placeholder="📍 Location" value="{{ location }}">
+            <button type="submit">Search Jobs</button>
+        </form>
+    </section>
+
+    <!-- Job Listings -->
+    <div class="container">
+        <div class="cards-container">
+            {% for job in jobs %}
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="job-logo">🏢</div>
+                    <div class="job-info">
+                        <div class="job-title">{{ job.title }}</div>
+                        <div class="company">{{ job.company }}</div>
+                        <div class="location">{{ job.location }}</div>
+                        {% if job.additional_location %}
+                        <div class="additional-location">{{ job.additional_location }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="job-footer">
+                    <button class="apply-btn">Apply Now</button>
+                    <button class="save-btn">Save</button>
+                </div>
+            </div>
+            {% else %}
+            <p>No jobs found.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <p>&copy; 2025 Job Portal | All Rights Reserved</p>
+            <p><a href="#">Privacy Policy</a> | <a href="#">Terms</a></p>
+        </div>
+    </footer>
+</body>
+</html>
